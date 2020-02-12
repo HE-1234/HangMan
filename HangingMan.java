@@ -46,23 +46,21 @@ public class HangingMan {
                                 "|   / \\\n"+
                                 "/\\\n",
                             };
-                            
-                            
+                       
+   public HangingMan(){
+        numWrongGuesses = 0;
+    }
+
+    public boolean isntDead(){
+        return numWrongGuesses < 5;
+    }
+
     public void show(){
         System.out.println(HangmanImage[numWrongGuesses]);
-    }           
-    
-    public boolean isntDead(){
-        if(numWrongGuesses < 6){
-            return false;
-        }else {
-            return true;
-        }
     }
-    
+
     public void dieSomeMore(){
-        numWrongGuesses = numWrongGuesses + 1;
-    
+        numWrongGuesses++;
     }
       
 }

@@ -1,4 +1,4 @@
-import java.util.ArrayList;
+ import java.util.ArrayList;
 import java.util.*;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -8,15 +8,14 @@ public class Puzzle
    ArrayList <String> guessList = new ArrayList<String>(); 
    ArrayList<String> puzzleName = new ArrayList<String>();
    ArrayList <String> rightList = new ArrayList<String>();
+   String puzzleKey = "nice";
    public Puzzle(){
        puzzleName.add("n");
        puzzleName.add("i");
        puzzleName.add("c");
        puzzleName.add("e");
        
-       for(int i = 0; i < puzzleName.size(); i++){
-           rightList.add(" _ ");
-       }
+
    }
    
    public Boolean isUnsolved(){
@@ -27,24 +26,24 @@ public class Puzzle
        for(int i = copyPuzzle.size()-1; i>= 0; i--){
            for(int o = copyRight.size()-1; o>= 0; o--){
                if(copyRight.get(o).equals(copyPuzzle.get(i))){
-                   copyPuzzle.remove(o);
-                   copyRight.remove(i);
+                   copyPuzzle.remove(i);
+                   copyRight.remove(o);
                }
             } 
         }
         
-       if(copyRight.size()==0) return true;
+       if(copyPuzzle.size()==0) return false;
        
-       return false;
+       return true;
    }
    
    public Boolean makeGuess(String guessLetter){
        Boolean isThere = false;
        guessList.add(guessLetter);
-       for(int i = 0; i < guessList.size(); i++){
-        if(guessList.get(i).equals(guessLetter)){
+       for(int i = 0; i < puzzleName.size(); i++){
+        if(puzzleName.get(i).equals(guessLetter)){
              isThere = true;
-             rightList.set(i,guessLetter);
+             rightList.add(guessLetter);
           }  
         }
       
@@ -54,20 +53,24 @@ public class Puzzle
    
    
    
-   public void getWord(){
-       for(String i: puzzleName){
-           System.out.print(i);
-       }
-   }
+   public String getWord(){
+        return puzzleKey;
+    }
 
-   public String show(){
-       String theList = "";
-       for(String i : rightList){
-           theList = theList + " " + i;
-       }
- 
-       return theList;
-   }
+   public void show() {
+        for (int i = 0; i < puzzleName.size(); i++) {
+            if (rightList.contains(puzzleName.get(i))) {
+                System.out.print(puzzleName.get(i) + " ");
+            } else {
+                System.out.print("_ ");
+            }
+        }
+        System.out.println();
+        System.out.print("letters guessed: ");
+        for(String str : guessList){
+            System.out.print(str + ". ");
+        }
+    }
    
    
 }
